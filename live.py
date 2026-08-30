@@ -4,7 +4,6 @@ import sounddevice as sd
 import threading
 import time
 import os
-
 from screeninfo import get_monitors
 from dotenv import load_dotenv
 
@@ -85,22 +84,11 @@ def video_thread():
     monitor_w = target_monitor.width
     monitor_h = target_monitor.height
 
-    cv2.namedWindow(
-        window_name,
-        cv2.WINDOW_NORMAL
-    )
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(window_name, monitor_w, monitor_h)
+    cv2.moveWindow(window_name, monitor_x, monitor_y)
 
-    cv2.resizeWindow(
-        window_name,
-        monitor_w,
-        monitor_h
-    )
-
-    cv2.moveWindow(
-        window_name,
-        monitor_x,
-        monitor_y
-    )
+    cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
     print(f"[+] Video stream starting, press 'q' to exit")
     print()
